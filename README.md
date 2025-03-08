@@ -150,6 +150,43 @@ public class SpecialAttack {
 }
 ```
 ---
+## 📊 **Suggested Class Structure**
+ 
+ ### **1. `Game`**
+ - Manages the main game flow, turn order, and win conditions.
+ - Handles game initialization and replay functionality.
+ 
+ ### **2. `Player`**
+ - Stores player information, including the game board and ships.
+ - Manages player moves and interactions.
+ 
+ ### **3. `Board`**
+ - Manages the player’s grid and keeps track of hits, misses, and ship positions.
+ - Displays the board status.
+ 
+ ### **4. `Ship`**
+ - Handles properties like size, position, health levels, and damage tracking.
+ - Manages ship-specific logic.
+ 
+ ### **5. `Coordinate`**
+ - Encapsulates a grid position for easy reference.
+ - Handles validation and parsing of coordinates.
+ 
+ ### **6. `SpecialAttack` (Optional)**
+ - Handles logic for special moves like radar scans and multi-strikes.
+ 
+ ### **7. `Utils`**
+ - Provides helper functions for input validation, game status updates, and board display.
+ 
+ ---
+ 
+ ## 👨‍💻 **Development Tips**
+ - Write **clean, modular, and readable code**.
+ - Apply OOP principles thoughtfully.
+ - Test thoroughly to catch and resolve bugs.
+ - Use comments to clarify key parts of your code.
+ - Keep classes focused on single responsibilities.
+---
 ## 🚀 **Git Workflow for Submitting the Exercise**
 
 To complete and submit this exercise, follow these Git steps:
