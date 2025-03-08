@@ -1,5 +1,4 @@
-# ✨ 🛥️ **BattleShip Exercise - Phase 2** 🛥️ ✨
-
+<h1 align="center">✨ 🛥️ <strong>BattleShip Exercise - Phase 2</strong> 🛥️ ✨</h1>
 <p align="center">
   <i>Level up your programming skills by integrating Object-Oriented Programming principles!</i>
 </p>
