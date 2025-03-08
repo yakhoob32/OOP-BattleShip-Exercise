@@ -1,4 +1,4 @@
-<h1 align="center">✨ 🛥️ <strong>BattleShip Mini Project - Phase 2</strong> 🛥️ ✨</h1>
+# ✨ 🛥️ **BattleShip Exercise - Phase 2** 🛥️ ✨
 
 <p align="center">
   <i>Level up your programming skills by integrating Object-Oriented Programming principles!</i>
@@ -6,8 +6,8 @@
 
 ---
 
-## 📌 **Project Introduction**
-Welcome to Phase 2 of the **BattleShip Game** project! In this phase, you'll enhance your previous implementation by applying principles of **Object-Oriented Programming (OOP)**.
+## 📌 **Exercise Introduction**
+Welcome to Phase 2 of the **BattleShip Game** exercise! In this phase, you'll enhance your previous implementation by applying principles of **Object-Oriented Programming (OOP)**.
 
 > 🎯 **Objective:** Develop a more maintainable, scalable, and modular version of the game by utilizing core OOP concepts.
 
@@ -50,71 +50,139 @@ Welcome to Phase 2 of the **BattleShip Game** project! In this phase, you'll enh
 - Implement the game using classes to encapsulate game components.
 - Use principles like **encapsulation**, **inheritance**, and **polymorphism** where appropriate.
 
-### ✅ **2. Additional Features**
-- **Enhanced Input Validation:** Add more detailed validation messages for better user experience.
-- **Replay Feature:** Allow players to restart the game after it ends.
-- **Advanced Ship Placement:** Implement a randomized ship placement feature for quicker setup.
-- **Dynamic Board Size:** Allow players to choose grid sizes at the beginning of the game.
-- **Enhanced AI (Optional):** Create an AI opponent with basic strategy capabilities.
-- **Special Attack Moves:** Introduce a limited number of special attacks, such as:
-  - **Radar Scan:** Reveals part of the opponent's grid without attacking.
-  - **Multi-Strike:** Attacks multiple adjacent cells at once.
-- **Ship Health Levels:** Ships may require multiple hits per cell to be fully destroyed (e.g., armored ships).
-- **Fog of War:** Players only see parts of the grid they have attacked or scanned.
-- **Time-Limited Turns:** Players must act within a set time, or they forfeit the turn.
+### ✅ **2. Additional Features (with Java Implementation)**
 
-### ✅ **3. Clean and Modular Code**
-- Ensure your code is modular and easy to read.
-- Follow good coding practices with well-defined classes and methods.
+#### **Enhanced Input Validation**
+```java
+import java.util.Scanner;
+
+public class InputValidator {
+    public static boolean isValidCoordinate(String input) {
+        if (input.length() != 2) return false;
+        char col = input.charAt(0);
+        char row = input.charAt(1);
+        return (col >= 'A' && col <= 'J') && (row >= '0' && row <= '9');
+    }
+}
+```
+
+#### **Replay Feature**
+```java
+import java.util.Scanner;
+
+public class Game {
+    public void start() {
+        boolean playAgain;
+        do {
+            playGame();
+            playAgain = askReplay();
+        } while (playAgain);
+    }
+    
+    private boolean askReplay() {
+        System.out.println("Play again? (yes/no)");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next().equalsIgnoreCase("yes");
+    }
+
+    private void playGame() {
+        System.out.println("Game logic here...");
+    }
+}
+```
+
+#### **Advanced Ship Placement (Randomized)**
+```java
+import java.util.Random;
+
+public class ShipPlacer {
+    public static void placeShipRandomly(Board board, Ship ship) {
+        Random rand = new Random();
+        boolean placed = false;
+        while (!placed) {
+            int row = rand.nextInt(board.getSize());
+            int col = rand.nextInt(board.getSize());
+            boolean horizontal = rand.nextBoolean();
+            placed = board.placeShip(ship, row, col, horizontal);
+        }
+    }
+}
+```
+
+#### **Dynamic Board Size**
+```java
+public class Board {
+    private char[][] grid;
+    private int size;
+    
+    public Board(int size) {
+        this.size = size;
+        this.grid = new char[size][size];
+    }
+    
+    public int getSize() {
+        return size;
+    }
+}
+```
+
+#### **Enhanced AI (Basic Strategy)**
+```java
+import java.util.Random;
+
+public class AIPlayer extends Player {
+    public String makeMove() {
+        Random rand = new Random();
+        return "" + (char) ('A' + rand.nextInt(10)) + rand.nextInt(10);
+    }
+}
+```
+
+#### **Special Attack Moves**
+```java
+public class SpecialAttack {
+    public static void radarScan(Board enemyBoard) {
+        System.out.println("Radar scan activated!");
+    }
+    
+    public static void multiStrike(Board enemyBoard, int row, int col) {
+        System.out.println("Multi-Strike attack!");
+    }
+}
+```
 
 ---
 
-## 🔍 **Why Object-Oriented Programming (OOP)?**
-1. **Modularity:** Breaking down the game into classes (like `Game`, `Player`, `Ship`, and `Board`) makes it easier to manage and extend.
-2. **Reusability:** Classes and methods can be reused or extended without rewriting existing code.
-3. **Scalability:** As the game becomes more complex, OOP makes it easier to add new features.
-4. **Maintainability:** Encapsulation keeps different parts of the code independent, reducing bugs and making testing simpler.
-5. **Readability:** Clear and organized structure enhances code understanding for future developers.
+## 🚀 **Git Workflow for Submitting the Exercise**
 
----
+To complete and submit this exercise, follow these Git steps:
 
-## 📊 **Suggested Class Structure**
+### **1. Fork the Repository**
+Go to the following repository and click the **Fork** button:
+🔗 [https://github.com/AP4032/OOP-BattleShip-Exercise](https://github.com/AP4032/OOP-BattleShip-Exercise)
 
-### **1. `Game`**
-- Manages the main game flow, turn order, and win conditions.
-- Handles game initialization and replay functionality.
+### **2. Clone Your Fork**
+```sh
+git clone https://github.com/YOUR_USERNAME/OOP-BattleShip-Exercise.git
+```
 
-### **2. `Player`**
-- Stores player information, including the game board and ships.
-- Manages player moves and interactions.
+### **3. Implement Your Code**
+- Write the necessary classes and methods.
+- Commit changes after completing each feature.
 
-### **3. `Board`**
-- Manages the player’s grid and keeps track of hits, misses, and ship positions.
-- Displays the board status.
+```sh
+git add .
+git commit -m "Added Ship class implementation"
+```
 
-### **4. `Ship`**
-- Handles properties like size, position, health levels, and damage tracking.
-- Manages ship-specific logic.
+### **4. Push Changes to Your Fork**
+```sh
+git push
+```
 
-### **5. `Coordinate`**
-- Encapsulates a grid position for easy reference.
-- Handles validation and parsing of coordinates.
-
-### **6. `SpecialAttack` (Optional)**
-- Handles logic for special moves like radar scans and multi-strikes.
-
-### **7. `Utils`**
-- Provides helper functions for input validation, game status updates, and board display.
-
----
-
-## 👨‍💻 **Development Tips**
-- Write **clean, modular, and readable code**.
-- Apply OOP principles thoughtfully.
-- Test thoroughly to catch and resolve bugs.
-- Use comments to clarify key parts of your code.
-- Keep classes focused on single responsibilities.
-
+### **5. Create a Pull Request**
+- Go to your forked repository on GitHub.
+- Click the **New Pull Request** button.
 ---
 
 ## 🎉 **Final Note**
