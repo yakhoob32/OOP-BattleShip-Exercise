@@ -152,6 +152,229 @@ public class SpecialAttack {
 ```
 
 ---
+Suggested Class Structure
+Game – Manages the flow of the game.
+Player – Represents a player (both human and AI).
+Board – Represents the grid of the game (10x10).
+Ship – Represents a ship and its properties.
+InputValidator – Validates the coordinates.
+ShipPlacer – Handles placing ships on the board (randomized or manual).
+SpecialAttack – Contains special attack logic (e.g., radar scan).
+AIPlayer – AI-specific behavior to make moves.
+1. Game Class (Manages the Flow of the Game)
+java
+Copy
+Edit
+import java.util.Scanner;
+
+public class Game {
+    private Player player1;
+    private Player player2;
+
+    public Game() {
+        this.player1 = new Player("Player 1");
+        this.player2 = new Player("Player 2");
+    }
+
+    public void start() {
+        boolean playAgain;
+        do {
+            System.out.println("Starting a new game...");
+            playGame();
+            playAgain = askReplay();
+        } while (playAgain);
+    }
+
+    private void playGame() {
+        // Initialize game, ship placements, and game mechanics.
+        System.out.println("Game logic here...");
+    }
+
+    private boolean askReplay() {
+        System.out.println("Play again? (yes/no)");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next().equalsIgnoreCase("yes");
+    }
+}
+2. Player Class (Represents Each Player)
+java
+Copy
+Edit
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player {
+    private String name;
+    private Board board;
+    private List<Ship> ships;
+
+    public Player(String name) {
+        this.name = name;
+        this.board = new Board(10);  // 10x10 grid
+        this.ships = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void addShip(Ship ship) {
+        ships.add(ship);
+    }
+
+    public boolean hasLost() {
+        return ships.stream().allMatch(Ship::isSunk);
+    }
+}
+3. Board Class (The Game Grid)
+java
+Copy
+Edit
+public class Board {
+    private char[][] grid;
+
+    public Board(int size) {
+        this.grid = new char[size][size];
+        initializeGrid();
+    }
+
+    private void initializeGrid() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                grid[i][j] = '~';  // Represents water
+            }
+        }
+    }
+
+    public void placeShip(Ship ship, int row, int col, boolean horizontal) {
+        // Logic for placing the ship on the board
+    }
+
+    public void displayBoard() {
+        for (char[] row : grid) {
+            for (char cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+4. Ship Class (Defines Ships and Their Properties)
+java
+Copy
+Edit
+public class Ship {
+    private String name;
+    private int size;
+    private int hits;
+
+    public Ship(String name, int size) {
+        this.name = name;
+        this.size = size;
+        this.hits = 0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void hit() {
+        hits++;
+    }
+
+    public boolean isSunk() {
+        return hits == size;
+    }
+}
+5. InputValidator Class (Handles User Input Validation)
+java
+Copy
+Edit
+public class InputValidator {
+    public static boolean isValidCoordinate(String input) {
+        if (input.length() != 2) return false;
+        char col = input.charAt(0);
+        char row = input.charAt(1);
+        return (col >= 'A' && col <= 'J') && (row >= '0' && row <= '9');
+    }
+}
+6. ShipPlacer Class (Handles Ship Placement Logic)
+java
+Copy
+Edit
+import java.util.Random;
+
+public class ShipPlacer {
+    public static void placeShipRandomly(Board board, Ship ship) {
+        Random rand = new Random();
+        boolean placed = false;
+        while (!placed) {
+            int row = rand.nextInt(board.getSize());
+            int col = rand.nextInt(board.getSize());
+            boolean horizontal = rand.nextBoolean();
+            placed = board.placeShip(ship, row, col, horizontal);
+        }
+    }
+}
+7. SpecialAttack Class (For Special Attacks like Radar Scan or Multi-Strike)
+java
+Copy
+Edit
+public class SpecialAttack {
+    public static void radarScan(Board enemyBoard) {
+        System.out.println("Radar scan activated!");
+        // Implement radar scan logic
+    }
+
+    public static void multiStrike(Board enemyBoard, int row, int col) {
+        System.out.println("Multi-Strike attack on " + (char) ('A' + col) + row + "!");
+        // Implement multi-strike logic
+    }
+}
+8. AIPlayer Class (For AI Behavior)
+java
+Copy
+Edit
+import java.util.Random;
+
+public class AIPlayer extends Player {
+    public AIPlayer(String name) {
+        super(name);
+    }
+
+    public String makeMove() {
+        Random rand = new Random();
+        char col = (char) ('A' + rand.nextInt(10));
+        int row = rand.nextInt(10);
+        return "" + col + row;
+    }
+}
+Additional Notes
+The Board class uses a simple 2D array (char[][] grid) for the game grid.
+The Ship class tracks the number of hits and checks whether it has been sunk.
+AIPlayer makes random moves, but you can enhance the AI logic for smarter decision-making.
+The InputValidator ensures that players input coordinates in the correct format (A0, B9, etc.).
+ShipPlacer randomizes ship placement.
+SpecialAttack includes special moves, like radar scans, which can be expanded based on your requirements.
+Example of the Main Game Loop
+java
+Copy
+Edit
+public class Main {
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.start();
+    }
+}
+---
 
 ## 🚀 **Git Workflow for Submitting the Exercise**
 
