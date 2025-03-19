@@ -128,7 +128,7 @@ public class Board {
 #### **Enhanced AI (Basic Strategy)**
 ```java
 import java.util.Random;
-
+ 
 public class AIPlayer extends Player {
     public String makeMove() {
         Random rand = new Random();
