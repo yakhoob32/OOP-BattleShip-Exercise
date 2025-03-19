@@ -5,7 +5,7 @@ public class bttleShip {
 
     
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         AttackPlayer playerAttack = new AttackPlayer();
         AttackComputer computerAttack = new AttackComputer();
         InitializeGrid initialize = new InitializeGrid();
